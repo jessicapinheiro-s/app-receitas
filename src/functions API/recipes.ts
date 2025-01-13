@@ -1,23 +1,36 @@
-interface RecipesByIngredientsProps {
-    Ingredient: string;
-}
-
-export async function getRecipesByWord (props: RecipesByIngredientsProps) {
-    const { Ingredient } = props;
-    require('dotenv').config();
-
-    const keys = process.env.API_KEY;
+import.meta.env; 
+export async function getRecipesByWord(props: string) {
+    const keys =  import.meta.env.VITE_API_SECRET;
     const hostAPI = 'https://api.spoonacular.com/recipes/';
 
-    try{
-        const response = await fetch(`${hostAPI}complexSearch?query=${Ingredient}&apiKey=${keys}`);
-        if(!response.ok) {
+    const query = props;
+    try {
+        const response = await fetch(`${hostAPI}complexSearch?query=${query}&apiKey=${keys}`);
+        if (!response.ok) {
             throw new Error(`Error to get recipes ${response.status}`);
         }
         const data = await response.json();
         return data;
 
-    }catch (error) {
-        throw new Error (`Error to get recipes ${error}`);
+    } catch (error) {
+        throw new Error(`Error to get recipes ${error}`);
+    }
+}
+
+export async function getRecipesById(props: number) {
+    const keys =  import.meta.env.VITE_API_SECRET;
+    const hostAPI = 'https://api.spoonacular.com/recipes/';
+
+    const query = props;
+    try {
+        const response = await fetch(`${hostAPI}${query}/information&apiKey=${keys}`);
+        if (!response.ok) {
+            throw new Error(`Error to get recipes ${response.status}`);
+        }
+        const data = await response.json();
+        return data;
+
+    } catch (error) {
+        throw new Error(`Error to get recipes ${error}`);
     }
 }
