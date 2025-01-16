@@ -5,7 +5,7 @@ export async function getRecipesByWord(props: string) {
 
     const query = props;
     try {
-        const response = await fetch(`${hostAPI}complexSearch?query=${query}&apiKey=${keys}`);
+        const response = await fetch(`${hostAPI}complexSearch?query=${query}&apiKey=${keys}&number=100`);
         if (!response.ok) {
             throw new Error(`Error to get recipes ${response.status}`);
         }
@@ -23,7 +23,7 @@ export async function getRecipesById(props: number) {
 
     const query = props;
     try {
-        const response = await fetch(`${hostAPI}${query}/information&apiKey=${keys}`);
+        const response = await fetch(`${hostAPI}${query}/information&apiKey=${keys}&number=100`);
         if (!response.ok) {
             throw new Error(`Error to get recipes ${response.status}`);
         }
