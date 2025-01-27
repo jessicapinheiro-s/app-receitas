@@ -23,7 +23,7 @@ export async function getRecipesById(props: number) {
 
     const query = props;
     try {
-        const response = await fetch(`${hostAPI}${query}/information&apiKey=${keys}&number=100`);
+        const response = await fetch(`${hostAPI}${query}/information?apiKey=${keys}`);
         if (!response.ok) {
             throw new Error(`Error to get recipes ${response.status}`);
         }
