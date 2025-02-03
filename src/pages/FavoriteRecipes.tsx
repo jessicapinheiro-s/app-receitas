@@ -49,7 +49,6 @@ export default function FavoriteRecipesPage() {
     return (
         <div className="w-full h-full gap-8 flex flex-col">
             <Header />
-            <h1>Favorite Recipes</h1>
             <div className='w-full px-44 flex flex-row items-center justify-start flex-wrap gap-8'>
                 {
                     favoriteRecipes?.map(item => (

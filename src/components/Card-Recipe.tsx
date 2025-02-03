@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CirclePlus, Heart, Search } from 'lucide-react';
+import { ChefHat, CirclePlus, Clock9, CookingPot, Heart, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 type Item = {
@@ -28,7 +28,6 @@ export default function CardRecipes(props: PropsCard) {
             'ItemId',
             JSON.stringify(allItens)
         );
-
         setFavFlag(true)
     };
 
@@ -55,18 +54,33 @@ export default function CardRecipes(props: PropsCard) {
                     >
                         <motion.div
                             layoutId={index.toString()}
-                            className="bg-white w-[50%] h-[50%] rounded-xl p-8 flex-col gap-8"
+                            className="bg-white w-[700px] h-[50%] rounded-xl p-8 flex-col gap-8"
                             onClick={(e) => e.stopPropagation()} // Impede que o clique feche o modal
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.5, opacity: 0 }}
                             transition={{ type: 'just', stiffness: 300, damping: 30 }}
                         >
-                            <img
-                                className=' h-40 rounded-2xl'
-                                src={item.image}
-                                alt={item.title}
-                            />
+                            <div className="flex flex-row items-center justify-between">
+                                <img
+                                    className='w-[350px] rounded-2xl'
+                                    src={item.image}
+                                    alt={item.title}
+                                />
+                                <div>
+                                    <Clock9 size={16} className="text-[#ef4444]"/> preparationMinutes
+                                    <CookingPot size={16} className="text-[#ef4444]"/> 
+                                    <Heart size={16} className="text-[#ef4444]"/>  aggregateLikes
+                                    <ChefHat size={16} className="text-[#ef4444]"/> cusines
+                                </div>
+                            </div>
+                            <div className='w-2/12 h-7 flex flex-col items-center justify-center rounded-md p-1 bg-red-500' onClick={(e) => { handleFav(e.currentTarget.id) }} id={(item.id).toString()}>
+                                    <Heart size={16} style={
+                                        {
+                                            color: "#fff"
+                                        }
+                                    } />
+                                </div>
                             <div className='w-full flex flex-col items-start'>
                                 <div className='w-7/12  break-words border'>
                                     <h2 className='text-left font-bold text-lg break-words'>{item.title}</h2>
@@ -80,32 +94,27 @@ export default function CardRecipes(props: PropsCard) {
                 )}
             </AnimatePresence>
             <motion.div
-                className='w-56 h-[220px] flex flex-col items-start justify-start border rounded-2xl gap-6 p-2 overflow-hidden cursor-pointer '
+                className=' w-[350px] relative flex flex-col items-start justify-start border rounded-2xl gap-6  overflow-hidden cursor-pointer '
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "just" }}
                 layoutId={index.toString()}
             >
-                <img className='w-full h-40 rounded-2xl' src={item.image} alt={item.title} />
-                <div className='w-full flex flex-row items-start justify-between'>
+                <div className="w-full relative">
+                    <img className='w-full h-full object-cover  rounded-2xl' src={item.image} alt={item.title} />
+                    <div className="absolute inset-0  bg-black bg-opacity-50 rounded-lg"></div>
+                </div>
+                <div className='w-full flex flex-row items-start justify-between top-48 absolute px-3 py-0'>
                     <div className='w-7/12  break-words'>
-                        <h2 className='text-left font-bold text-lg break-words'>{item.title}</h2>
+                        <h2 className='text-left font-bold text-lg break-words text-white text-[16px]'>{item.title}</h2>
                     </div>
-                    <div className='w-2/12  h-7 flex flex-col items-center justify-center border rounded-md p-1' onClick={() => setSelectedId(index)}>
+                    <div className='w-[40px]  h-7 flex flex-col items-center justify-center border rounded-md p-1' onClick={() => setSelectedId(index)}>
                         <CirclePlus size={20} style={
                             {
-                                color: 'grey'
+                                color: 'white'
                             }
                         }
                         />
-
-                    </div>
-                    <div className='w-2/12 h-7 flex flex-col items-center justify-center rounded-md p-1 bg-red-500' onClick={(e) => { handleFav(e.currentTarget.id) }} id={(item.id).toString()}>
-                        <Heart size={16} style={
-                            {
-                                color: "#fff"
-                            }
-                        } />
                     </div>
                 </div>
             </motion.div>

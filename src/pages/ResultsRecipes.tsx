@@ -11,8 +11,6 @@ export default function ResultRecipesPage() {
     const queryClient = useQueryClient();
     const recipes: RecipesProps[] = queryClient.getQueryData(['recipes']) ?? [];
 
-
-
     return (
         <div className='w-full h-full gap-8 flex flex-col'>
             <Header />
