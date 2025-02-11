@@ -10,7 +10,7 @@ export default function SearchBar({ searchFunc }: SearchBarProps) {
   return (
     <input
       type="text"
-      className="flex-1 p-2 focus:outline-none"
+      className="flex-1 p-2 focus:outline-none text-[#474747] bg-transparent"
       placeholder="Digite a receita ou o ingrediente"
       value={inputValue} // Use o estado local para gerenciar o valor
       onChange={(e) => {

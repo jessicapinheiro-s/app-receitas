@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  Heart, Search } from 'lucide-react';
+import { Heart, Search } from 'lucide-react';
 import { getRecipesByWord } from '../functions API/recipes';
 import SearchBar from '../components/Search';
 import { useQuery } from '@tanstack/react-query';
@@ -37,45 +37,54 @@ export default function SearchPage() {
             alert('Preencha o campo de ingredientes corretamente.');
             return;
         }
-        await refetch(); 
+        await refetch();
         navigate('ResultsRecipes');
     };
-    
+
     const handleSearchContent = (value: string) => {
         setIngredient(value); // Atualiza o estado do ingrediente
     };
 
     return (
         <React.Fragment>
-            
+
             <div className='w-screen h-screen flex flex-col items-center justify-center gap-8 p-32'>
-                <div className="w-full flex flex-row items-center h-12 justify-between">
-                    <div className='border rounded-xl w-9/12 flex flex-row items-center'>
-                        <SearchBar searchFunc={handleSearchContent} />
-                        <button
-                            type='button'
-                            className="flex items-center justify-center w-20 h-12 bg-blue-400 rounded-xl"
-                            onClick={handleSearch}
-                        >
-                            <Search style={{ color: '#fff' }} />
-                            
-                        </button>
+                <div className="w-10/12 gap-6 flex flex-col items-center justify-center">
+                    <div className="w-full flex flex-col items-center justify-center">
+                        <h1 className="text-[29px] font-bold text-[#222222]">Search for a Recipe</h1>
+                        <p className="text-[14px] text-[#474747]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus cupiditate ipsa doloremque, </p>
                     </div>
-                    <select
-                        name="dietType"
-                        id="dietType"
-                        className='border rounded-xl h-12 focus:outline-none w-2/12'
-                        value={dietSelected}
-                        onChange={(event) => setDiet(event.target.value)}
-                    >
-                        {ditesType.map((item, index) => (
-                            <option key={index} value={item}>
-                                {item}
-                            </option>
-                        ))}
-                    </select>
-                    <div className='flex flex-col items-center justify-center border rounded-xl h-12 w-16'>
-                        <Heart size={16} />
+                    <div className="w-full flex flex-row items-center h-12 justify-between">
+                        <div className='border rounded-xl w-9/12 flex flex-row items-center border-[#dfdfdf] '>
+                            <SearchBar searchFunc={handleSearchContent} />
+                            <button
+                                type='button'
+                                className="flex items-center justify-center w-20 h-12 bg-orange-400 rounded-xl"
+                                onClick={handleSearch}
+                            >
+                                <Search style={{ color: '#fff' }} />
+
+                            </button>
+                        </div>
+                        <select
+                            name="dietType"
+                            id="dietType"
+                            className='border rounded-xl h-12 focus:outline-none w-2/12 text-[#474747] border-[#dfdfdf]'
+                            value={dietSelected}
+                            onChange={(event) => setDiet(event.target.value)}
+                        >
+                            {ditesType.map((item, index) => (
+                                <option key={index} value={item}>
+                                    {item}
+                                </option>
+                            ))}
+                        </select>
+                        <div className='flex flex-col items-center justify-center border rounded-xl h-12 w-16 border-[#dfdfdf]'>
+                            <Heart
+                                size={16}
+                                className="text-[#474747]"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

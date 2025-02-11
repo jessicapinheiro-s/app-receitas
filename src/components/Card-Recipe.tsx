@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ChefHat, CirclePlus, Clock9, CookingPot, Heart, Search } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { ChefHat, CirclePlus, Clock, CookingPot, Heart, Search } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Item = {
     title: string;
@@ -21,11 +21,11 @@ export default function CardRecipes(props: PropsCard) {
 
     const handleFav = (id: string) => {
         const idArrStr = [id];
-        const localFavItens: string[] = JSON.parse(localStorage.getItem('ItemId') || '[]');
+        const localFavItens: string[] = JSON.parse(localStorage.getItem("ItemId") || "[]");
         const allItens = [...localFavItens, ...idArrStr];
 
         localStorage.setItem(
-            'ItemId',
+            "ItemId",
             JSON.stringify(allItens)
         );
         setFavFlag(true)
@@ -54,39 +54,50 @@ export default function CardRecipes(props: PropsCard) {
                     >
                         <motion.div
                             layoutId={index.toString()}
-                            className="bg-white w-[700px] h-[50%] rounded-xl p-8 flex-col gap-8"
+                            className="bg-white w-[800px] h-[50%] rounded-xl flex flex-row"
                             onClick={(e) => e.stopPropagation()} // Impede que o clique feche o modal
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.5, opacity: 0 }}
-                            transition={{ type: 'just', stiffness: 300, damping: 30 }}
+                            transition={{ type: "just", stiffness: 300, damping: 30 }}
                         >
-                            <div className="flex flex-row items-center justify-between">
+                            <div className="w-[50%] flex flex-row items-center gap-4 justify-between">
                                 <img
-                                    className='w-[350px] rounded-2xl'
+                                    className="w-[100%] rounded-xl h-full"
                                     src={item.image}
                                     alt={item.title}
                                 />
-                                <div>
-                                    <Clock9 size={16} className="text-[#ef4444]"/> preparationMinutes
-                                    <CookingPot size={16} className="text-[#ef4444]"/> 
-                                    <Heart size={16} className="text-[#ef4444]"/>  aggregateLikes
-                                    <ChefHat size={16} className="text-[#ef4444]"/> cusines
-                                </div>
+
                             </div>
-                            <div className='w-2/12 h-7 flex flex-col items-center justify-center rounded-md p-1 bg-red-500' onClick={(e) => { handleFav(e.currentTarget.id) }} id={(item.id).toString()}>
-                                    <Heart size={16} style={
-                                        {
-                                            color: "#fff"
-                                        }
-                                    } />
-                                </div>
-                            <div className='w-full flex flex-col items-start'>
-                                <div className='w-7/12  break-words border'>
-                                    <h2 className='text-left font-bold text-lg break-words'>{item.title}</h2>
-                                </div>
-                                <div className='border'>
-                                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. In voluptate voluptatem adipisci, unde quae quaerat ex voluptatibus ipsum. Numquam possimus sed quibusdam sit voluptatem aliquid distinctio architecto veniam dignissimos laboriosam?</p>
+                            <div className="w-[50%] p-6 break-words ">
+                                <div className="flex flex-col items-start gap-6">
+                                    <div className="w-full  break-words ">
+                                        <h2 className="text-[24px] text-left font-bold text-lg break-words">{item.title}</h2>
+                                    </div>
+                                    <div className="w-full grid grid-cols-2 grid-rows-2 gap-2 ">
+                                        <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
+                                            <Clock size={16} className="text-[#ef4444]" /> <p>CookingPot</p>
+                                        </div>
+                                        <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
+                                            <CookingPot size={16} className="text-[#ef4444]" /> <p>teste</p>
+                                        </div>
+                                        <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
+                                            <Heart size={16} className="text-[#ef4444]" />  <p>ds</p>
+                                        </div>
+                                        <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
+                                            <ChefHat size={16} className="text-[#ef4444]" /> <p>cusines</p>
+                                        </div>
+                                        <div className=" w-4/12 h-8 flex flex-col items-center justify-center rounded-md bg-orange-400" onClick={(e) => { handleFav(e.currentTarget.id) }} id={(item.id).toString()}>
+                                            <Heart size={16} style={
+                                                {
+                                                    color: "#fff"
+                                                }
+                                            } />
+                                        </div>
+                                    </div>
+                                    <div className="">
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. In voluptate voluptatem adipisci, unde quae quaerat ex voluptatibus ipsum. Numquam possimus sed quibusdam sit voluptatem aliquid distinctio architecto veniam dignissimos laboriosam?</p>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
@@ -94,24 +105,24 @@ export default function CardRecipes(props: PropsCard) {
                 )}
             </AnimatePresence>
             <motion.div
-                className=' w-[350px] relative flex flex-col items-start justify-start border rounded-2xl gap-6  overflow-hidden cursor-pointer '
+                className=" w-[350px] relative flex flex-col items-start justify-start border rounded-2xl gap-6  overflow-hidden cursor-pointer "
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "just" }}
                 layoutId={index.toString()}
             >
                 <div className="w-full relative">
-                    <img className='w-full h-full object-cover  rounded-2xl' src={item.image} alt={item.title} />
+                    <img className="w-full h-full object-cover  rounded-2xl" src={item.image} alt={item.title} />
                     <div className="absolute inset-0  bg-black bg-opacity-50 rounded-lg"></div>
                 </div>
-                <div className='w-full flex flex-row items-start justify-between top-48 absolute px-3 py-0'>
-                    <div className='w-7/12  break-words'>
-                        <h2 className='text-left font-bold text-lg break-words text-white text-[16px]'>{item.title}</h2>
+                <div className="w-full flex flex-row items-start justify-between top-48 absolute px-3 py-0">
+                    <div className="w-7/12  break-words">
+                        <h2 className="text-left font-bold text-lg break-words text-white text-[16px]">{item.title}</h2>
                     </div>
-                    <div className='w-[40px]  h-7 flex flex-col items-center justify-center border rounded-md p-1' onClick={() => setSelectedId(index)}>
+                    <div className="w-[40px]  h-7 flex flex-col items-center justify-center border rounded-md p-1" onClick={() => setSelectedId(index)}>
                         <CirclePlus size={20} style={
                             {
-                                color: 'white'
+                                color: "white"
                             }
                         }
                         />
@@ -135,7 +146,7 @@ export default function CardRecipes(props: PropsCard) {
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.5, opacity: 0 }}
-                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         >
                             <h2>Receita adicionada a lista de Favoritos!</h2>
                         </motion.div>
