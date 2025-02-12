@@ -5,7 +5,7 @@ export async function getRecipesByWord(props: string) {
 
     const query = props;
     try {
-        const response = await fetch(`${hostAPI}complexSearch?query=${query}&apiKey=${keys}&number=100`);
+        const response = await fetch(`${hostAPI}complexSearch?query=${query}&apiKey=${keys}&number=5`);
         if (!response.ok) {
             throw new Error(`Error to get recipes ${response.status}`);
         }
