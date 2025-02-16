@@ -12,6 +12,7 @@
   "dependencies": {
     "@tanstack/react-query": "^5.64.2",
     "@tanstack/react-query-devtools": "^5.64.2",
+    "dangerously-set-html-content": "^1.1.0",
     "dotenv": "^16.4.7",
     "lucide-react": "^0.471.0",
     "motion": "^11.18.0",

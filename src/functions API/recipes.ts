@@ -1,11 +1,12 @@
 import.meta.env; 
-export async function getRecipesByWord(props: string) {
+export async function getRecipesByWord(props: string, dietType:string) {
     const keys =  import.meta.env.VITE_API_SECRET;
     const hostAPI = 'https://api.spoonacular.com/recipes/';
 
     const query = props;
+    const queryDiet = dietType;
     try {
-        const response = await fetch(`${hostAPI}complexSearch?query=${query}&apiKey=${keys}&number=5`);
+        const response = await fetch(`${hostAPI}complexSearch?query=${query}&apiKey=${keys}&number=5&diet=${queryDiet}`);
         if (!response.ok) {
             throw new Error(`Error to get recipes ${response.status}`);
         }

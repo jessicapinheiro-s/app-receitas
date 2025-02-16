@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Heart, Search } from 'lucide-react';
 import { getRecipesByWord } from '../functions API/recipes';
 import SearchBar from '../components/Search';
@@ -18,6 +18,7 @@ export default function SearchPage() {
     const [ingredient, setIngredient] = useState<string>('');
     const navigate = useNavigate();
 
+
     const {
         data: recipes,
         isLoading,
@@ -25,16 +26,17 @@ export default function SearchPage() {
     } = useQuery({
         queryKey: ['recipes'],
         queryFn: async () => {
-            const itens = await getRecipesByWord(ingredient);
+            const itens = await getRecipesByWord(ingredient, dietSelected.replaceAll('  ', '-'));
             return itens.results;
         },
         enabled: false, // Não executa automaticamente
         refetchOnWindowFocus: false
     });
+    console.log(dietSelected)
 
     const handleSearch = async () => {
         if (!ingredient.trim()) {
-            alert('Preencha o campo de ingredientes corretamente.');
+            //alert('Preencha o campo de ingredientes corretamente.');
             return;
         }
         await refetch();
@@ -42,7 +44,7 @@ export default function SearchPage() {
     };
 
     const handleSearchContent = (value: string) => {
-        setIngredient(value); // Atualiza o estado do ingrediente
+        setIngredient(value); 
     };
 
     return (

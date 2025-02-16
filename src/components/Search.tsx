@@ -6,7 +6,6 @@ type SearchBarProps = {
 
 export default function SearchBar({ searchFunc }: SearchBarProps) {
   const [inputValue, setInputValue] = useState<string>('');
-    console.log('a')
   return (
     <input
       type="text"

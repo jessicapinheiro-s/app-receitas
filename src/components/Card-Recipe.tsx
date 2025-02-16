@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { ChefHat, CirclePlus, Clock, CookingPot, Heart, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { RecipeInfoProps } from "../types/recipes-info-type";
+import HTMLContent from 'dangerously-set-html-content';
 
 type Item = {
     title: string;
     image: string
     id: number
 }
-
 interface PropsCard {
-    item: Item,
+    item: RecipeInfoProps,
     index: number
 }
-
 
 export default function CardRecipes(props: PropsCard) {
     const { item, index } = props;
@@ -54,7 +54,7 @@ export default function CardRecipes(props: PropsCard) {
                     >
                         <motion.div
                             layoutId={index.toString()}
-                            className="bg-white w-[800px] h-[50%] rounded-xl flex flex-row"
+                            className="bg-white w-[1000px] h-[50%] rounded-xl flex flex-row"
                             onClick={(e) => e.stopPropagation()} // Impede que o clique feche o modal
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
@@ -76,13 +76,13 @@ export default function CardRecipes(props: PropsCard) {
                                     </div>
                                     <div className="w-full grid grid-cols-2 grid-rows-2 gap-2 ">
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
-                                            <Clock size={16} className="text-[#ef4444]" /> <p>CookingPot</p>
+                                            <Clock size={16} className="text-[#ef4444]" /> <p>{item.readyInMinutes} Minutes</p>
                                         </div>
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
                                             <CookingPot size={16} className="text-[#ef4444]" /> <p>teste</p>
                                         </div>
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
-                                            <Heart size={16} className="text-[#ef4444]" />  <p>ds</p>
+                                            <Heart size={16} className="text-[#ef4444]" />  <p>Popular: {item.veryPopular ? 'Sim' : 'Não'}</p>
                                         </div>
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
                                             <ChefHat size={16} className="text-[#ef4444]" /> <p>cusines</p>
@@ -95,8 +95,9 @@ export default function CardRecipes(props: PropsCard) {
                                             } />
                                         </div>
                                     </div>
-                                    <div className="">
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. In voluptate voluptatem adipisci, unde quae quaerat ex voluptatibus ipsum. Numquam possimus sed quibusdam sit voluptatem aliquid distinctio architecto veniam dignissimos laboriosam?</p>
+                                    <div className="w-full overflow-y-auto h-[172px] ">
+                                        <HTMLContent html={item.instructions}/>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +105,7 @@ export default function CardRecipes(props: PropsCard) {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <motion.div
+            <motion.div   
                 className=" w-[350px] relative flex flex-col items-start justify-start border rounded-2xl gap-6  overflow-hidden cursor-pointer "
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -115,8 +116,8 @@ export default function CardRecipes(props: PropsCard) {
                     <img className="w-full h-full object-cover  rounded-2xl" src={item.image} alt={item.title} />
                     <div className="absolute inset-0  bg-black bg-opacity-50 rounded-lg"></div>
                 </div>
-                <div className="w-full flex flex-row items-start justify-between top-48 absolute px-3 py-0">
-                    <div className="w-7/12  break-words">
+                <div className="w-full flex flex-row items-start justify-between top-40 absolute px-3 py-0">
+                    <div className="w-full  break-words overflow-hidden">
                         <h2 className="text-left font-bold text-lg break-words text-white text-[16px]">{item.title}</h2>
                     </div>
                     <div className="w-[40px]  h-7 flex flex-col items-center justify-center border rounded-md p-1" onClick={() => setSelectedId(index)}>
