@@ -46,7 +46,6 @@ export default function ResultRecipesPage() {
                         <CardRecipes item={item} index={index} key={index} />
                     ))
                 }
-
             </div>
         </div>
     )

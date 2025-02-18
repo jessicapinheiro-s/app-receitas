@@ -18,7 +18,7 @@ export default function CardRecipes(props: PropsCard) {
     const { item, index } = props;
     const [favFlag, setFavFlag] = useState<boolean>(false);
     const [selectedId, setSelectedId] = useState<number>();
-
+    const instructionsArr = (item.instructions).replace('<ol>', '').replace('</ol>', '').replaceAll('<li>', '').split('</li>').filter(item => item !== '');
     const handleFav = (id: string) => {
         const idArrStr = [id];
         const localFavItens: string[] = JSON.parse(localStorage.getItem("ItemId") || "[]");
@@ -72,32 +72,46 @@ export default function CardRecipes(props: PropsCard) {
                             <div className="w-[50%] p-6 break-words ">
                                 <div className="flex flex-col items-start gap-6">
                                     <div className="w-full  break-words ">
-                                        <h2 className="text-[24px] text-left font-bold text-lg break-words">{item.title}</h2>
+                                        <h2 className="text-[29px] text-left font-bold text-lg break-words">{item.title}</h2>
                                     </div>
                                     <div className="w-full grid grid-cols-2 grid-rows-2 gap-2 ">
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
                                             <Clock size={16} className="text-[#ef4444]" /> <p>{item.readyInMinutes} Minutes</p>
                                         </div>
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
-                                            <CookingPot size={16} className="text-[#ef4444]" /> <p>teste</p>
+                                            <CookingPot size={16} className="text-[#ef4444]" /> <p>{(item.diets).join(', ')}</p>
                                         </div>
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
                                             <Heart size={16} className="text-[#ef4444]" />  <p>Popular: {item.veryPopular ? 'Sim' : 'Não'}</p>
                                         </div>
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
-                                            <ChefHat size={16} className="text-[#ef4444]" /> <p>cusines</p>
+                                            <ChefHat size={16} className="text-[#ef4444]" /> <p>{item.cuisines[0]}</p>
                                         </div>
-                                        <div className=" w-4/12 h-8 flex flex-col items-center justify-center rounded-md bg-orange-400" onClick={(e) => { handleFav(e.currentTarget.id) }} id={(item.id).toString()}>
-                                            <Heart size={16} style={
+                                        <div className=" w-4/12 h-8 flex flex-col items-start justify-center " onClick={(e) => { handleFav(e.currentTarget.id) }} id={(item.id).toString()}>
+                                            <Heart size={20} style={
                                                 {
-                                                    color: "#fff"
+                                                    color: "#ef4444"
                                                 }
                                             } />
                                         </div>
                                     </div>
-                                    <div className="w-full overflow-y-auto h-[172px] ">
-                                        <HTMLContent html={item.instructions}/>
-                                        
+                                    <div className="w-full overflow-y-auto h-[172px] flex flex-col gap-4">
+                                        <div className="w-full">
+                                            <ul className="flex flex-row gap-2 flex-wrap">
+                                                {(item.extendedIngredients).map(item => (
+                                                    <div className="bg-[#d5d5d5] border rounded-xl border-[#d5d5d5]">
+                                                        <li className="px-4 text-white">
+                                                            {item.name}
+                                                        </li>
+                                                    </div>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div >
+                                            {instructionsArr.map(item => (
+                                                <li>{item}</li>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +119,7 @@ export default function CardRecipes(props: PropsCard) {
                     </motion.div>
                 )}
             </AnimatePresence>
-            <motion.div   
+            <motion.div
                 className=" w-[350px] relative flex flex-col items-start justify-start border rounded-2xl gap-6  overflow-hidden cursor-pointer "
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
