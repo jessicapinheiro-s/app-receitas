@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ChefHat, CirclePlus, Clock, CookingPot, Heart, Search } from "lucide-react";
+import { ChefHat, CirclePlus, Clock, CookingPot, Heart, Search, UtensilsCrossed } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { RecipeInfoProps } from "../types/recipes-info-type";
 import HTMLContent from 'dangerously-set-html-content';
@@ -30,7 +30,7 @@ export default function CardRecipes(props: PropsCard) {
         );
         setFavFlag(true)
     };
-
+    console.log(item)
     useEffect(() => {
         if (favFlag) {
             const id = window.setTimeout(() => {
@@ -54,22 +54,21 @@ export default function CardRecipes(props: PropsCard) {
                     >
                         <motion.div
                             layoutId={index.toString()}
-                            className="bg-white w-[1000px] h-[50%] rounded-xl flex flex-row"
+                            className="bg-white w-[50%] h-[50%] rounded-xl flex flex-row"
                             onClick={(e) => e.stopPropagation()} // Impede que o clique feche o modal
                             initial={{ scale: 0.5, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.5, opacity: 0 }}
                             transition={{ type: "just", stiffness: 300, damping: 30 }}
                         >
-                            <div className="w-[50%] flex flex-row items-center gap-4 justify-between">
+                            <div className="w-[50%] flex flex-row p-10 pr-5 items-centerjustify-center">
                                 <img
-                                    className="w-[100%] rounded-xl h-full"
+                                    className=" rounded-xl "
                                     src={item.image}
                                     alt={item.title}
                                 />
-
                             </div>
-                            <div className="w-[50%] p-6 break-words ">
+                            <div className="w-[50%] p-10 break-words pl-5">
                                 <div className="flex flex-col items-start gap-6">
                                     <div className="w-full flex flex-row">
                                         <div className="w-full  break-words ">
@@ -87,18 +86,23 @@ export default function CardRecipes(props: PropsCard) {
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
                                             <Clock size={16} className="text-[#ef4444]" /> <p>{item.readyInMinutes} Minutes</p>
                                         </div>
+                                        {item.diets[0] && (
+                                            <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
+                                                <CookingPot size={16} className="text-[#ef4444]" /> <p>{(item.diets).join(', ')}</p>
+                                            </div>
+                                        )}
                                         <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
-                                            <CookingPot size={16} className="text-[#ef4444]" /> <p>{(item.diets).join(', ')}</p>
+                                            <UtensilsCrossed size={16} className="text-[#ef4444]" />  <p>{item.glutenFree ? 'Gluten Free' : 'Not Gluten Free'}</p>
                                         </div>
-                                        <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
-                                            <Heart size={16} className="text-[#ef4444]" />  <p>Popular: {item.veryPopular ? 'Sim' : 'Não'}</p>
-                                        </div>
-                                        <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
-                                            <ChefHat size={16} className="text-[#ef4444]" /> <p>{item.cuisines[0]}</p>
-                                        </div>
+                                        {item.cuisines[0] && (
+                                            <div className="w-full border rounded-xl p-4 flex flex-row items-center justify-start gap-2">
+                                                <ChefHat size={16} className="text-[#ef4444]" /> <p>{item.cuisines[0]}</p>
+                                            </div>
+                                        )}
+
                                     </div>
 
-                                    <div className="w-full overflow-y-auto h-[172px] flex flex-col gap-4">
+                                    <div className="w-full overflow-y-auto h-[149px] flex flex-col gap-4">
                                         <div className="w-full">
                                             <ul className="flex flex-row gap-2 flex-wrap">
                                                 {(item.extendedIngredients).map(item => (

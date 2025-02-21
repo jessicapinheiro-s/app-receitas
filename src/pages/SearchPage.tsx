@@ -32,15 +32,19 @@ export default function SearchPage() {
         enabled: false, // Não executa automaticamente
         refetchOnWindowFocus: false
     });
-    console.log(dietSelected)
+    console.log(recipes)
 
     const handleSearch = async () => {
         if (!ingredient.trim()) {
-            //alert('Preencha o campo de ingredientes corretamente.');
+            alert('Preencha o campo de ingredientes corretamente.');
             return;
         }
         await refetch();
-        navigate('ResultsRecipes');
+        if(recipes.lenght !== 0){
+            navigate('ResultsRecipes');
+        }else{
+            navigate('NotFoundPage');
+        }
     };
 
     const handleSearchContent = (value: string) => {
