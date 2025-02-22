@@ -51,13 +51,7 @@ export default function FavoriteRecipesPage() {
             <Header />
             <div className='w-full px-44 flex flex-row items-center justify-start flex-wrap gap-8'>
                 {
-                    favoriteRecipes?.map(item => (
-                        <CardRecipes item={{
-                            title: item.title,
-                            image:  item.image,
-                            id:     item.id
-                        }} index={item.id} />
-                    ))
+                   
                 }
             </div>
         </div>

@@ -5,6 +5,7 @@ import FavoriteRecipesPage from './pages/FavoriteRecipes';
 import ResultRecipesPage from './pages/ResultsRecipes';
 import SearchPage from './pages/SearchPage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import NotFoundPage from './pages/NotFound';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='/FavoriteRecipes' element={<FavoriteRecipesPage />} />
           <Route path='/ResultsRecipes' element={<ResultRecipesPage />} />
           <Route path='/' element={<SearchPage />} />
+          <Route path='/NotFound' element={<NotFoundPage />} />
         </Routes>
       </Router>
     </QueryClientProvider>

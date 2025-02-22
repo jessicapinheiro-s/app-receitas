@@ -40,11 +40,12 @@ export default function SearchPage() {
             return;
         }
         await refetch();
-        if(recipes.lenght !== 0){
+        /*if(recipes.lenght !== 0){
             navigate('ResultsRecipes');
         }else{
-            navigate('NotFoundPage');
-        }
+            
+        }*/
+        navigate('NotFound');
     };
 
     const handleSearchContent = (value: string) => {
